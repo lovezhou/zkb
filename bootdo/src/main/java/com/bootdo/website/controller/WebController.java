@@ -158,22 +158,22 @@ public class WebController {
 	@GetMapping("/practView/{uuid}")
 	ModelAndView practiceView(@PathVariable("uuid") String uuid) {
 		CompareDO compareDO=compareMap.get(uuid);
+		ModelAndView view = new ModelAndView(prefix+"practice_anw");
+		//放在无效请求
+		if(compareDO==null){
+			return view;
+		}
 		String exeId=  compareDO.getId();
-		boolean flagAll =  compareDO.isFlagAll();
 		ExercisesDO exeDo= exercisesService.get(exeId);
 	    Map<String,Object> map=new HashMap<String,Object>();
 		map.put("exeId", exeId);
-		List<PracticeDO>  list= null;
-		if(flagAll){
-			list =practiceService.list(map);
-		}else{
-			List<ResultDO>  nums = compareDO.getList();
-			map.put("nums", nums);
-			list =practiceService.list(map);
-		}
-		ModelAndView view = new ModelAndView(prefix+"practice_anw");
+		List<ResultDO>  nums = compareDO.getList();
+		map.put("nums", nums);
+		List<PracticeDO> 	list =practiceService.list(map);
+		
 		view.addObject("exeDo", exeDo);
 		view.addObject("parcDO", list);
+		view.addObject("nums", nums);
 		return view;
 	}
 	

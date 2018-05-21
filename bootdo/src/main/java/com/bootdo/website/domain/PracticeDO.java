@@ -38,7 +38,7 @@ public class PracticeDO implements Serializable {
 	private String exeId;
 	private String remark;
 	private String typeName;
-
+	
 	/**
 	 * 设置：序列号
 	 */
