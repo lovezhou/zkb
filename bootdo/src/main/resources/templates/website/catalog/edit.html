@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+					    <input id="catalog_id" name="catalogId" th:value="${catalog.catalogId}"  type="hidden">
+						<input id="parent_id" name="parentId" th:value="${catalog.parentId}"  type="hidden">
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">上级标题：</label>
+								<div class="col-sm-8">
+									<input  th:value="${pName}" class="form-control"  type="text" readonly>
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">目录名称：</label>
+								<div class="col-sm-8">
+									<input id="name" name="name" th:value="${catalog.name}" class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">排序：</label>
+								<div class="col-sm-8">
+									<input id="orderNum" name="orderNum" th:value="${catalog.orderNum}" class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">超链接：</label>
+								<div class="col-sm-8">
+									<input id="url" name="url" th:value="${catalog.url}" class="form-control" type="text">
+								</div>
+							</div>
+																					<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-3">
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+	</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript" src="/js/appjs/website/catalog/edit.js">
+	</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="website/index/in_website::head"></head>
+<style  type="text/css" >
+.circle-red{width: 30px; height: 30px;  background: red;  -moz-border-radius:15px; -webkit-border-radius:15px;  border-radius:15px;text-align: center;}
+.circle-green{width: 30px; height: 30px;  background: #3cfb3c;  -moz-border-radius:15px; -webkit-border-radius:15px;  border-radius:15px;text-align: center;}
+</style>
+<body>
+  <nav  th:include="website/index/in_website::nav" ></nav>
+  <section class="fdb-block"  data-block-type="contents" data-id="2">
+    <div class="container"  >
+       <div class="row align-items-center" >
+          <div class="col-xs-12 col-sm-12 col-md-12"  >
+                  <h3 ><input id="txt_exeId" type="hidden" th:value="${exeDo.id}"><strong  th:text="${exeDo.name}"> </strong></h3>
+          </div>
+      </div>
+       <div class="row align-items-center" >
+        <!-- 题目显示 -->
+       	<form id="practiceForm" >
+          <div class="col-xs-12 col-sm-12 col-md-12" th:each="parc:${parcDO}" >
+               <h3 th:if="${parc.typeName} != null"><strong  th:text="${parc.typeName}"> </strong></h3>
+               <h3 ><span th:text="${parc.question}"></span></h3>
+               <h3 th:if="${parc.a} != null" > 
+                     <ul class="list-inline">
+                       <li  th:if="${parc.a} != null"><input type="radio" th:name="'num_'+${parcStat.count}" value="A"  th:text="${parc.a}"></li>
+                       <li  th:if="${parc.b} != null"><input type="radio" th:name="'num_'+${parcStat.count}" value="B"  th:text="${parc.b}"></li>
+                       <li  th:if="${parc.c} != null"><input type="radio" th:name="'num_'+${parcStat.count}" value="C"  th:text="${parc.c}"></li>
+                       <li  th:if="${parc.d} != null"><input type="radio" th:name="'num_'+${parcStat.count}" value="D"  th:text="${parc.d}"></li>
+                     </ul>
+               </h3>
+               <h3  style="display:none" th:id="'answer_'+${parcStat.count}" th:text="${parc.answer}" ></h3>
+          </div>
+          </form>
+      </div>
+    
+      <div class="row align-items-center" >
+          <div class="col-xs-12 col-sm-12 col-md-12"  >
+          		<button class="btn btn-default" type="button" onclick="practice.submit()" >提交</button>
+          </div>
+      </div>
+      <!-- 结果显示 -->
+      <div id="div_res_comp" class="row align-items-center" style="display:none"> </div>
+      <div id="div_res_button" class="row align-items-center" style="display:none">
+           <button class="col-xs-2 col-sm-2 col-md-2 btn btn-default" type="button" onclick="practice.viewResult(0)">查看全部解析</button>
+           <button class="col-xs-2 col-sm-2 col-md-2 col-sm-offset-2 col-md-offset-2  btn btn-default" type="button" onclick="practice.viewResult(1)">查看错题解析</button>
+      </div>
+    </div>
+  </section>
+  <footer th:include="website/index/in_website::footer"></footer>
+ </body>
+</html>

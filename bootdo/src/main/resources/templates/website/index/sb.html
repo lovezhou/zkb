@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="website/index/in_website::head"></head>
+<body>
+  <nav  th:include="website/index/in_website::nav" ></nav>
+  <section class="fdb-block"  data-block-type="contents" data-id="2">
+    <div class="container"  >
+       <div class="row align-items-center" >
+          <div class="col-xs-12 col-sm-12 col-md-12"  >
+                <h3 ><strong th:text="${profDo.profId}+${profDo.profName}" ></strong></h3>
+          </div>
+      </div>
+       <div class="row align-items-center" >
+          <div class="col-xs-6 col-sm-6 col-md-4" th:each="sb : ${sbs}" >
+                 <a href="#"  th:href="'../exe/'+${profDo.profId}+'/'+${sb.sbCode}" th:text="${sb.sbCode}+${sb.sbName}">专业</a>
+          </div>
+      </div>
+    </div>
+  </section>
+  <footer th:include="website/index/in_website::footer"></footer>
+  
+ </body>
+</html>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.website.dao.CatalogDao">
+
+	<select id="get" resultType="com.bootdo.website.domain.CatalogDO">
+		select `catalog_id`,`parent_id`,`name`,`order_num`,`del_flag`,`url` from website_catalog where catalog_id = #{value}
+	</select>
+
+	<select id="list" resultType="com.bootdo.website.domain.CatalogDO">
+		select `catalog_id`,`parent_id`,`name`,`order_num`,`del_flag`,`url` from website_catalog
+        <where>  
+		  		  <if test="catalogId != null and catalogId != ''"> and catalog_id = #{catalogId} </if>
+		  		  <if test="parentId != null and parentId != ''"> and parent_id = #{parentId} </if>
+		  		  <if test="name != null and name != ''"> and name = #{name} </if>
+		  		  <if test="orderNum != null and orderNum != ''"> and order_num = #{orderNum} </if>
+		  		  <if test="delFlag != null and delFlag != ''"> and del_flag = #{delFlag} </if>
+		  		  <if test="url != null and url != ''"> and url = #{url} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by catalog_id 
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from website_catalog
+		 <where>  
+		  		  <if test="catalogId != null and catalogId != ''"> and catalog_id = #{catalogId} </if>
+		  		  <if test="parentId != null and parentId != ''"> and parent_id = #{parentId} </if>
+		  		  <if test="name != null and name != ''"> and name = #{name} </if>
+		  		  <if test="orderNum != null and orderNum != ''"> and order_num = #{orderNum} </if>
+		  		  <if test="delFlag != null and delFlag != ''"> and del_flag = #{delFlag} </if>
+		  		  <if test="url != null and url != ''"> and url = #{url} </if>
+		  		</where>
+	</select>
+	
+	<select id="checkUnique" resultType="java.lang.Boolean" parameterType="com.bootdo.website.domain.CatalogDO" >
+		SELECT COUNT(*)>0 FROM  website_catalog  WHERE NAME= #{name}
+		      <if test="catalogId != null and catalogId != ''"> 
+		          and catalog_id != #{catalogId} 
+		      </if>
+	</select>
+	 
+	<insert id="save" parameterType="com.bootdo.website.domain.CatalogDO"  useGeneratedKeys="true" >
+		insert into website_catalog
+		(
+			`parent_id`, 
+			`name`, 
+			`order_num`, 
+			`del_flag`, 
+			`url`
+		)
+		values
+		(
+			#{parentId}, 
+			#{name}, 
+			#{orderNum}, 
+			#{delFlag}, 
+			#{url}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.bootdo.website.domain.CatalogDO">
+		update website_catalog 
+		<set>
+			<if test="parentId != null">`parent_id` = #{parentId}, </if>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="orderNum != null">`order_num` = #{orderNum}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}, </if>
+			<if test="url != null">`url` = #{url}</if>
+		</set>
+		where catalog_id = #{catalogId}
+	</update>
+	
+	<delete id="remove">
+		delete from website_catalog where catalog_id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from website_catalog where catalog_id in 
+		<foreach item="catalogId" collection="array" open="(" separator="," close=")">
+			#{catalogId}
+		</foreach>
+	</delete>
+
+</mapper>

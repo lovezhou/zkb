@@ -1,0 +1,77 @@
+<head th:fragment="head">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="自考，自考本科，本科自考，自考真题，自考练习">
+<meta name="key" content="自考，自考本科，本科自考，自考真题，自考练习">
+  <title>自考练习</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
+  <script src="/js/jquery.min.js?v=2.1.4"></script>
+  <script src="/js/json2.js"></script>
+  <script src="/js/index.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  <link type="text/css" rel="stylesheet" href="/css/froala_blocks.css">
+</head>
+
+
+<div th:fragment="nav">
+<header class="bg-dark" data-block-type="header" data-id="1">
+    <div class="container">
+      <nav class="navbar navbar-expand-md">
+      <!-- 
+	      <a class="navbar-brand" href="#">
+	          <img src="#" height="30" alt="image">
+	      </a>
+	   -->    
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav11" aria-controls="navbarNav11" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+      	  <div class="collapse navbar-collapse" id="navbarNav11">
+             <ul class="navbar-nav ml-auto">
+	            <li class="nav-item"  th:each="catalog : ${catalogs}">
+	              <a class="nav-link" href="#" th:href="@{${catalog.url}}" th:text="${catalog.name}"></a>
+	            </li>
+         	 </ul>
+          <a class="btn btn-white btn-empty ml-md-3" href="#">登录</a>
+          <a class="btn btn-white btn-empty ml-md-3" href="#">注册</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+</div>
+
+  <!-- 
+<div th:fragment="footer">
+	<footer class="fdb-block footer-small bg-dark fp-active"  data-block-type="footers" data-id="3">
+    <div class="container">
+      <div class="row align-items-center">
+    
+        <div class="col-12 col-md-8">
+          <ul class="nav justify-content-center justify-content-md-start">
+            <li class="nav-item">
+              <a class="nav-link active" href="#"></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"></a>
+            </li>
+          </ul>
+        </div>
+ 	 
+        <div class="col-12 col-md-8 mt-8 mt-md-8 text-center text-md-right">
+          &copy; XXXX. All Rights Reserved
+        </div>
+        
+      </div>
+    </div>
+  	</footer>
+  	 -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"  crossorigin="anonymous"></script>
+</div>
+

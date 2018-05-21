@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.website.dao.ProfDao">
+
+	<select id="get" resultType="com.bootdo.website.domain.ProfDO">
+		select `prof_id`,`prof_name`,`prof_type` from website_prof where prof_id = #{profId}
+	</select>
+
+	<select id="list" resultType="com.bootdo.website.domain.ProfDO">
+		select `prof_id`,`prof_name`,`prof_type`,dict.name prof_type_name from website_prof  t
+		LEFT JOIN  sys_dict dict ON t.prof_type= dict.value AND dict.type='zk_type' AND dict.del_flag='0'
+        <where>  
+		  		  <if test="profId != null and profId != ''"> and t.prof_id = #{profId} </if>
+		  		  <if test="profName != null and profName != ''"> and t.prof_name = #{profName} </if>
+		  		  <if test="profType != null and profType != ''"> and t.prof_type = #{profType} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by t.prof_id 
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from website_prof
+		 <where>  
+		  		  <if test="profId != null and profId != ''"> and prof_id = #{profId} </if>
+		  		  <if test="profName != null and profName != ''"> and prof_name = #{profName} </if>
+		  		  <if test="profType != null and profType != ''"> and prof_type = #{profType} </if>
+		  		</where>
+	</select>
+	
+	
+	<select id="checkUnique"  resultType="java.lang.Boolean" parameterType="com.bootdo.website.domain.ProfDO">
+		select count(*)>0 from website_prof where  prof_id = #{profId} 
+	</select>
+	 
+	<insert id="save" parameterType="com.bootdo.website.domain.ProfDO">
+		insert into website_prof
+		(
+			`prof_id`, 
+			`prof_name`, 
+			`prof_type`
+		)
+		values
+		(
+			#{profId}, 
+			#{profName}, 
+			#{profType}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.bootdo.website.domain.ProfDO">
+		update website_prof 
+		<set>
+			<if test="profName != null">`prof_name` = #{profName}, </if>
+			<if test="profType != null">`prof_type` = #{profType}</if>
+		</set>
+		where prof_id = #{profId}
+	</update>
+	
+	<delete id="remove">
+		delete from website_prof where prof_id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from website_prof where prof_id in 
+		<foreach item="profId" collection="array" open="(" separator="," close=")">
+			#{profId}
+		</foreach>
+	</delete>
+
+</mapper>
