@@ -21,6 +21,8 @@ public class ProfDO implements Serializable {
 	//类别,1:本科，2：专科
 	private Integer profType;
 	private String  profTypeName;
+	
+	private String opertor;//操作：1：新增，2删除，校验唯一性时使用
 
 	/**
 	 * 设置：自考专业id
@@ -63,6 +65,12 @@ public class ProfDO implements Serializable {
 	}
 	public void setProfTypeName(String profTypeName) {
 		this.profTypeName = profTypeName;
+	}
+	public String getOpertor() {
+		return opertor;
+	}
+	public void setOpertor(String opertor) {
+		this.opertor = opertor;
 	}
 	
 	

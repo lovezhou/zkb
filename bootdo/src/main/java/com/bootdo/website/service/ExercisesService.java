@@ -35,4 +35,6 @@ public interface ExercisesService {
 	 * @return
 	 */
 	List<ExercisesDO> listDistinct(Map<String, Object> map);
+
+	boolean checkUnique(ExercisesDO exercises);
 }

@@ -48,7 +48,7 @@ function load() {
 									title : '题目编号' 
 								},
 																{
-									field : 'type', 
+									field : 'typeName', 
 									title : '题目类型' 
 								},
 																{

@@ -4,11 +4,11 @@
 <mapper namespace="com.bootdo.website.dao.ProfDao">
 
 	<select id="get" resultType="com.bootdo.website.domain.ProfDO">
-		select `prof_id`,`prof_name`,`prof_type` from website_prof where prof_id = #{profId}
+		select prof_id,prof_name,prof_type from website_prof where prof_id = #{profId}
 	</select>
 
 	<select id="list" resultType="com.bootdo.website.domain.ProfDO">
-		select `prof_id`,`prof_name`,`prof_type`,dict.name prof_type_name from website_prof  t
+		select prof_id,prof_name,prof_type,dict.name prof_type_name from website_prof  t
 		LEFT JOIN  sys_dict dict ON t.prof_type= dict.value AND dict.type='zk_type' AND dict.del_flag='0'
         <where>  
 		  		  <if test="profId != null and profId != ''"> and t.prof_id = #{profId} </if>
@@ -39,15 +39,23 @@
 	
 	
 	<select id="checkUnique"  resultType="java.lang.Boolean" parameterType="com.bootdo.website.domain.ProfDO">
-		select count(*)>0 from website_prof where  prof_id = #{profId} 
+		select count(*)>0 from website_prof  
+		<where>
+		     <if test='opertor=="1"'>
+		          prof_id = #{profId}  or prof_name=#{profName}
+		     </if>
+		     <if test='opertor=="2"'>
+		          prof_id != #{profId} and  prof_name=#{profName}
+		     </if>
+		</where>
 	</select>
 	 
 	<insert id="save" parameterType="com.bootdo.website.domain.ProfDO">
 		insert into website_prof
 		(
-			`prof_id`, 
-			`prof_name`, 
-			`prof_type`
+			prof_id, 
+			prof_name, 
+			prof_type
 		)
 		values
 		(
@@ -60,8 +68,8 @@
 	<update id="update" parameterType="com.bootdo.website.domain.ProfDO">
 		update website_prof 
 		<set>
-			<if test="profName != null">`prof_name` = #{profName}, </if>
-			<if test="profType != null">`prof_type` = #{profType}</if>
+			<if test="profName != null">prof_name = #{profName}, </if>
+			<if test="profType != null">prof_type = #{profType}</if>
 		</set>
 		where prof_id = #{profId}
 	</update>

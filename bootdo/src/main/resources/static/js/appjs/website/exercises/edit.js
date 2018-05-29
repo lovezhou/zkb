@@ -39,11 +39,17 @@ function validateRule() {
 		rules : {
 			name : {
 				required : true
+			},
+			sbcode : {
+				required : true
 			}
 		},
 		messages : {
 			name : {
-				required : icon + "请输入名字"
+				required : icon + "请输入名称"
+			},
+			sbcode : {
+				required :  icon + "科目代码"
 			}
 		}
 	})

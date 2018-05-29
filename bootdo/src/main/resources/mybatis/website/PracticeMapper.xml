@@ -4,25 +4,28 @@
 <mapper namespace="com.bootdo.website.dao.PracticeDao">
 
 	<select id="get" resultType="com.bootdo.website.domain.PracticeDO">
-		select `id`,`num`,`type`,`question`,`A`,`B`,`C`,`D`,`E`,`answer`,`exe_id`,remark,type_name from website_practice where id = #{value}
+		select id,num,type,question,A,B,C,D,E,answer,exe_id,remark,type_name from website_practice where id = #{value}
 	</select>
 
 	<select id="list" resultType="com.bootdo.website.domain.PracticeDO">
-		select `id`,`num`,`type`,`question`,`A`,`B`,`C`,`D`,`E`,`answer`,`exe_id`,remark,type_name  from website_practice
+		select t.id,t.num,t.type,t.question,t.A,t.B,t.C,t.D,t.E,t.answer,t.exe_id,t.remark,t1.name type_name ,t2.name exe_name 
+		from website_practice t
+		   LEFT JOIN  sys_dict t1 ON t.type=t1.value  AND  t1.type='tm_type'
+           LEFT JOIN  website_exercises t2 ON t.exe_id= t2.id
         <where>  
-		  		  <if test="id != null and id != ''"> and id = #{id} </if>
-		  		  <if test="num != null and num != ''"> and num = #{num} </if>
-		  		  <if test="type != null and type != ''"> and type = #{type} </if>
+		  		  <if test="id != null and id != ''"> and t.id = #{id} </if>
+		  		  <if test="num != null and num != ''"> and t.num = #{num} </if>
+		  		  <if test="type != null and type != ''"> and t.type = #{type} </if>
 		  		  <if test="question != null and question != ''"> and question = #{question} </if>
-		  		  <if test="a != null and a != ''"> and A = #{a} </if>
-		  		  <if test="b != null and b != ''"> and B = #{b} </if>
-		  		  <if test="c != null and c != ''"> and C = #{c} </if>
-		  		  <if test="d != null and d != ''"> and D = #{d} </if>
-		  		  <if test="e != null and e != ''"> and E = #{e} </if>
-		  		  <if test="answer != null and answer != ''"> and answer = #{answer} </if>
-		  		  <if test="exeId != null and exeId != ''"> and exe_id = #{exeId} </if>
+		  		  <if test="a != null and a != ''"> and t.A = #{a} </if>
+		  		  <if test="b != null and b != ''"> and t.B = #{b} </if>
+		  		  <if test="c != null and c != ''"> and t.C = #{c} </if>
+		  		  <if test="d != null and d != ''"> and t.D = #{d} </if>
+		  		  <if test="e != null and e != ''"> and t.E = #{e} </if>
+		  		  <if test="answer != null and answer != ''"> and t.answer = #{answer} </if>
+		  		  <if test="exeId != null and exeId != ''"> and t.exe_id = #{exeId} </if>
 		  		  <if test="nums!=null">
-		  		  and  num in 
+		  		  and  t.num in 
 			       <foreach collection="nums" item="tmp" index="index"  open="("   separator=","   close=")" >
 			            #{tmp.num}
 			       </foreach>
@@ -61,16 +64,16 @@
 	<insert id="save" parameterType="com.bootdo.website.domain.PracticeDO" useGeneratedKeys="true" keyProperty="id">
 		insert into website_practice
 		(
-			`num`, 
-			`type`, 
-			`question`, 
-			`A`, 
-			`B`, 
-			`C`, 
-			`D`, 
-			`E`, 
-			`answer`, 
-			`exe_id`,
+			num, 
+			type, 
+			question, 
+			A, 
+			B, 
+			C, 
+			D, 
+			E, 
+			answer, 
+			exe_id,
 			 remark,
 			 type_name 
 		)
@@ -94,18 +97,18 @@
 	<update id="update" parameterType="com.bootdo.website.domain.PracticeDO">
 		update website_practice 
 		<set>
-			<if test="num != null">`num` = #{num}, </if>
-			<if test="type != null">`type` = #{type}, </if>
-			<if test="question != null">`question` = #{question}, </if>
-			<if test="a != null">`A` = #{a}, </if>
-			<if test="b != null">`B` = #{b}, </if>
-			<if test="c != null">`C` = #{c}, </if>
-			<if test="d != null">`D` = #{d}, </if>
-			<if test="e != null">`E` = #{e}, </if>
-			<if test="answer != null">`answer` = #{answer}, </if>
-			<if test="exeId != null">`exe_id` = #{exeId}</if>
-			<if test="remark != null">`remark` = #{remark}, </if>
-			<if test="typeName != null">`type_name` = #{typeName}</if>
+			<if test="num != null">num = #{num}, </if>
+			<if test="type != null">type = #{type}, </if>
+			<if test="question != null">question = #{question}, </if>
+			<if test="a != null">A = #{a}, </if>
+			<if test="b != null">B = #{b}, </if>
+			<if test="c != null">C = #{c}, </if>
+			<if test="d != null">D = #{d}, </if>
+			<if test="e != null">E = #{e}, </if>
+			<if test="answer != null">answer = #{answer}, </if>
+			<if test="exeId != null">exe_id = #{exeId}</if>
+			<if test="remark != null">remark = #{remark}, </if>
+			<if test="typeName != null">type_name = #{typeName}</if>
 		</set>
 		where id = #{id}
 	</update>

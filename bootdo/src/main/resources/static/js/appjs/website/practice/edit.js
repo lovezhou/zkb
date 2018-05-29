@@ -1,4 +1,5 @@
 $().ready(function() {
+	$.renderBox();
 	validateRule();
 });
 
@@ -36,13 +37,31 @@ function validateRule() {
 	var icon = "<i class='fa fa-times-circle'></i> ";
 	$("#signupForm").validate({
 		rules : {
-			name : {
+			num : {
+				required : true
+			},
+			type : {
+				required : true
+			},
+			question : {
+				required : true
+			},
+			exeId : {
 				required : true
 			}
 		},
 		messages : {
-			name : {
-				required : icon + "请输入名字"
+			num : {
+				required : icon + "请输入题目编号"
+			},
+			type : {
+				required : icon + "请输入题目类型"
+			},
+			question : {
+				required : icon + "请输入题目"
+			},
+			exeId : {
+				required : icon + "请输入试卷名称"
 			}
 		}
 	})

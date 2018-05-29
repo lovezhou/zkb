@@ -94,5 +94,13 @@
 			#{id}
 		</foreach>
 	</delete>
+	
+   <select id="checkUnique"  resultType="java.lang.Boolean" parameterType="com.bootdo.website.domain.ExercisesDO">
+		select count(*)>0 from website_exercises  
+		<where>
+		      <if test="id != null and id != ''">  id != #{id} </if>
+		      <if test="name != null and name != ''"> and name = #{name} </if>
+		</where>
+	</select>
 
 </mapper>

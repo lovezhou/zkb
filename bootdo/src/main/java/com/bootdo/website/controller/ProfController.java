@@ -73,9 +73,10 @@ public class ProfController {
 	@PostMapping("/save")
 	@RequiresPermissions("website:prof:add")
 	public R save( ProfDO prof){
+		prof.setOpertor("1");//1：新建
 		boolean flag = profService.checkUnique(prof);
 		if(flag){
-			return R.error("专业代码["+prof.getProfId()+"]已存在系统");
+			return R.error("专业代码["+prof.getProfId()+"]或者专业名称["+prof.getProfName()+"]已存在系统");
 		}
 		if(profService.save(prof)>0){
 			return R.ok();
@@ -89,9 +90,10 @@ public class ProfController {
 	@RequestMapping("/update")
 	@RequiresPermissions("website:prof:edit")
 	public R update( ProfDO prof){
+		prof.setOpertor("2");//1：编辑
 		boolean flag = profService.checkUnique(prof);
 		if(flag){
-			return R.error("专业代码["+prof.getProfId()+"]已存在系统");
+			return R.error("专业名称["+prof.getProfName()+"]已存在系统");
 		}
 		profService.update(prof);
 		return R.ok();

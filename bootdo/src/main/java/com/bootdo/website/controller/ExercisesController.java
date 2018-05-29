@@ -73,6 +73,10 @@ public class ExercisesController {
 	@PostMapping("/save")
 	@RequiresPermissions("website:exercises:add")
 	public R save( ExercisesDO exercises){
+		boolean flag = exercisesService.checkUnique(exercises);
+		if(flag){
+			return R.error("名称["+exercises.getName()+"]已存在系统");
+		}
 		if(exercisesService.save(exercises)>0){
 			return R.ok();
 		}
@@ -85,6 +89,10 @@ public class ExercisesController {
 	@RequestMapping("/update")
 	@RequiresPermissions("website:exercises:edit")
 	public R update( ExercisesDO exercises){
+		boolean flag = exercisesService.checkUnique(exercises);
+		if(flag){
+			return R.error("名称["+exercises.getName()+"]已存在系统");
+		}
 		exercisesService.update(exercises);
 		return R.ok();
 	}

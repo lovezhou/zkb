@@ -32,4 +32,6 @@ public interface ExercisesDao {
 	int batchRemove(String[] ids);
 
 	List<ExercisesDO> listDistinct(Map<String, Object> map);
+
+	boolean checkUnique(ExercisesDO exercises);
 }

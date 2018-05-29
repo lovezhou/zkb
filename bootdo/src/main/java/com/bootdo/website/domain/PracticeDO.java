@@ -36,9 +36,16 @@ public class PracticeDO implements Serializable {
 	private String answer;
 	//website_exercises表id
 	private String exeId;
+	private String exeName;
 	private String remark;
 	private String typeName;
 	
+	public String getExeName() {
+		return exeName;
+	}
+	public void setExeName(String exeName) {
+		this.exeName = exeName;
+	}
 	/**
 	 * 设置：序列号
 	 */

@@ -60,5 +60,10 @@ public class ExercisesServiceImpl implements ExercisesService {
 	public List<ExercisesDO> listDistinct(Map<String, Object> map) {
 		return exercisesDao.listDistinct(map);
 	}
+
+	@Override
+	public boolean checkUnique(ExercisesDO exercises) {
+		return exercisesDao.checkUnique(exercises);
+	}
 	
 }
