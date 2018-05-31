@@ -38,8 +38,15 @@ public class PracticeDO implements Serializable {
 	private String exeId;
 	private String exeName;
 	private String remark;
-	private String typeName;
+	private String typeName;//题目类型
+	private String subject;//题目 比如：选择题（共20题）
 	
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
 	public String getExeName() {
 		return exeName;
 	}
