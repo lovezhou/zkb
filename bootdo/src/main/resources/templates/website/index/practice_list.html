@@ -5,6 +5,37 @@
 <style  type="text/css" >
 .circle-red{width: 30px; height: 30px;  background: red;  -moz-border-radius:15px; -webkit-border-radius:15px;  border-radius:15px;text-align: center;}
 .circle-green{width: 30px; height: 30px;  background: #3cfb3c;  -moz-border-radius:15px; -webkit-border-radius:15px;  border-radius:15px;text-align: center;}
+
+.radio-beauty-container {
+    font-size: 0;
+    $bgc: green;
+    %common {
+        padding: 2px;
+        background-color: $bgc;
+        background-clip: content-box;
+    }
+    .radio-name {
+        vertical-align: middle;
+        font-size: 16px;
+    }
+    .radio-beauty {
+        width: 18px;
+        height: 18px;
+        box-sizing: border-box;
+        display: inline-block;
+        border: 1px solid $bgc;
+        vertical-align: middle;
+        margin: 0 15px 0 3px;
+        border-radius: 50%;
+        &:hover {
+            box-shadow: 0 0 7px $bgc;
+            @extend %common;
+        }
+    }
+    input[type="radio"]:checked+.radio-beauty {
+        @extend %common;
+    }
+}
 </style>
 <body>
   <nav  th:include="website/index/in_website::nav" ></nav>
@@ -19,7 +50,7 @@
         <!-- 题目显示 -->
        	<form id="practiceForm" >
           <div class="col-xs-12 col-sm-12 col-md-12" th:each="parc:${parcDO}" >
-               <h3 th:if="${parc.typeName} != null"><strong  th:text="${parc.typeName}"> </strong></h3>
+               <h3 th:if="${parc.subject} != null"><strong  th:text="${parc.subject}"> </strong></h3>
                <h3 ><span th:text="${parc.question}"></span></h3>
                <h3 th:if="${parc.a} != null" > 
                      <ul class="list-inline">

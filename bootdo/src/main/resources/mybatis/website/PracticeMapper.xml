@@ -4,11 +4,11 @@
 <mapper namespace="com.bootdo.website.dao.PracticeDao">
 
 	<select id="get" resultType="com.bootdo.website.domain.PracticeDO">
-		select id,num,type,question,A,B,C,D,E,answer,exe_id,remark,type_name from website_practice where id = #{value}
+		select id,num,type,question,A,B,C,D,E,answer,exe_id,remark,subject from website_practice where id = #{value}
 	</select>
 
 	<select id="list" resultType="com.bootdo.website.domain.PracticeDO">
-		select t.id,t.num,t.type,t.question,t.A,t.B,t.C,t.D,t.E,t.answer,t.exe_id,t.remark,t1.name type_name ,t2.name exe_name 
+		select t.id,t.num,t.type,t.question,t.A,t.B,t.C,t.D,t.E,t.answer,t.exe_id,t.remark, t1.name  type_name,subject, t2.name exe_name 
 		from website_practice t
 		   LEFT JOIN  sys_dict t1 ON t.type=t1.value  AND  t1.type='tm_type'
            LEFT JOIN  website_exercises t2 ON t.exe_id= t2.id
@@ -75,7 +75,7 @@
 			answer, 
 			exe_id,
 			 remark,
-			 type_name 
+			 subject 
 		)
 		values
 		(
@@ -90,7 +90,7 @@
 			#{answer}, 
 			#{exeId},
 			#{remark},
-			#{typeName}
+			#{subject}
 		)
 	</insert>
 	 
@@ -108,7 +108,7 @@
 			<if test="answer != null">answer = #{answer}, </if>
 			<if test="exeId != null">exe_id = #{exeId}</if>
 			<if test="remark != null">remark = #{remark}, </if>
-			<if test="typeName != null">type_name = #{typeName}</if>
+			<if test="typeName != null">subject = #{subject}</if>
 		</set>
 		where id = #{id}
 	</update>
