@@ -113,11 +113,12 @@ var selectBox = {
 		selectBox :function(id,isEmpty){
 			var dom ="";
 			if(typeof id ==='string'){
-			    dom=  $("#"+id);
+			    dom=  $("#"+id);//Jquery对象
 			}else{
 				dom =$(id);//包装为Jquery对象
 			}
 			var url=dom.attr("exturl");//扩展属性
+			var clas=dom.attr("class");//可能带搜索
 			var defaultVal=dom.attr("value");
 			$.ajax({
 				   type: 'GET',
@@ -125,8 +126,10 @@ var selectBox = {
 				   dataType: "json",
 				   success: function(result){
 					   var html="";
-					   if(isEmpty){
+					   if(isEmpty&&clas.indexOf("chosen-select") == -1){
 						   html="<option></option>";
+					   }else{
+						   html="<option>选择类别</option>";
 					   }
 					   $.each(result, function(i, obj){
 						   if(defaultVal!==undefined&& defaultVal!=''){
@@ -138,6 +141,11 @@ var selectBox = {
 					   });
 					   if(html.length>0){
 						   dom.append(html);
+						   if(clas.indexOf("chosen-select") != -1){
+							   dom.chosen({//渲染
+									maxHeight : 200
+							   });
+						   }
 					   }
 				   },
 				   error: function(result){
@@ -152,7 +160,7 @@ var selectBox = {
 		   var doms=$("select[id]");
 		   if(doms.length>0){
 			   for(var i=0;i<doms.length;i++){
-				   this.selectBox(doms.get(i),true);
+				   this.selectBox(doms.get(i),true);//git(i) dom对象
 			   }
 		   }
 	   }
