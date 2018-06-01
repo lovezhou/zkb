@@ -2,10 +2,6 @@
 <html>
 <meta charset="utf-8">
 <head th:include="website/index/in_website::head"></head>
-<script type="text/css"">
-.like{ font-size:66px;  color:#ccc; cursor:pointer;} /*原始样式*/
-.like_c{color:#f00;}/*点击后出现样式*/
-</script>
 <body>
   <nav  th:include="website/index/in_website::nav" ></nav>
   <section class="fdb-block"  data-block-type="contents" data-id="2">
@@ -17,17 +13,17 @@
       </div>
        <div class="row align-items-center" >
           <div class="col-xs-12 col-sm-12 col-md-12" th:each="parc:${parcDO}" >
-               <h3 th:if="${parc.typeName} != null"><strong  th:text="${parc.typeName}"> </strong></h3>
-               <h3 ><span th:text="${parc.question}"></span><span class="like">&#10084;</span></h3>
+               <h3 th:if="${parc.subject} != null"><strong  th:text="${parc.subject}"> </strong></h3>
+               <h3 ><span th:text="${parc.question}"></span></h3>
                <h3 th:if="${parc.a} != null" > 
                      <ul class="list-inline">
-                       <li  th:if="${parc.a} != null" th:id="'t_A_'+${parc.num}"><input type="radio"  th:name="'num_'+${parc.num}" value="A"  th:text="${parc.a}"></li>
-                       <li  th:if="${parc.b} != null" th:id="'t_B_'+${parc.num}"><input type="radio"  th:name="'num_'+${parc.num}" value="B"  th:text="${parc.b}"></li>
-                       <li  th:if="${parc.c} != null" th:id="'t_C_'+${parc.num}"><input type="radio"  th:name="'num_'+${parc.num}" value="C"  th:text="${parc.c}"></li>
-                       <li  th:if="${parc.d} != null" th:id="'t_D_'+${parc.num}"><input type="radio"  th:name="'num_'+${parc.num}" value="D"  th:text="${parc.d}"></li>
+                       <li  th:if="${parc.a} != null" th:id="'tA_'+${parc.num}"><input type="radio"  th:id="'rA_'+${parc.num}"  th:name="'num_'+${parc.num}" value="A"  th:text="${parc.a}"></li>
+                       <li  th:if="${parc.b} != null" th:id="'tB_'+${parc.num}"><input type="radio"  th:id="'rB_'+${parc.num}" th:name="'num_'+${parc.num}" value="B"  th:text="${parc.b}"></li>
+                       <li  th:if="${parc.c} != null" th:id="'tC_'+${parc.num}"><input type="radio"  th:id="'rC_'+${parc.num}"  th:name="'num_'+${parc.num}" value="C"  th:text="${parc.c}"></li>
+                       <li  th:if="${parc.d} != null" th:id="'tD_'+${parc.num}"><input type="radio"  th:id="'rD_'+${parc.num}" th:name="'num_'+${parc.num}" value="D"  th:text="${parc.d}"></li>
                      </ul>
                </h3>
-               <h3 th:id="'answer_'+${parcStat.count}" th:text="'答案：'+${parc.answer}"></h3>
+               <h3 th:id="'answer_'+${parcStat.count}"><label th:text="'答案：'+${parc.answer}"></label><a href="#">收藏</a></h3>
                <h3 th:id="'answer_'+${parcStat.count}" th:text="${parc.remark}"></h3>
           </div>
       </div>
@@ -36,11 +32,12 @@
 				var arr= [[${nums}]];
 					for(j = 0,len=arr.length; j < len; j++) {
 						var obj =arr[j];
-						var t = $("#t_"+obj.res+"_"+obj.num);
+						var t = $("#t"+obj.res+"_"+obj.num);
 						if(t){
 							t.attr("class","bg-danger");
 						}
-						$("#t_"+obj.anw+"_"+obj.num).attr("class","bg-success");
+						$("#t"+obj.anw+"_"+obj.num).attr("class","bg-success");
+						$("#r"+obj.anw+"_"+obj.num).attr("checked","checked");
 					}
 			</script>
   </section>
